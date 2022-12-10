@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
+import { GoogleButton } from "react-google-button";
 
 const Login = () => {
   const {
@@ -11,7 +12,7 @@ const Login = () => {
   } = useForm();
 
   // * auth context import
-  const { signIn } = useContext(AuthContext);
+  const { signIn, googleSignIn } = useContext(AuthContext);
   // * handleing login errors
   const [loginError, setLoginError] = useState("");
   const location = useLocation();
@@ -33,6 +34,14 @@ const Login = () => {
         console.error(error);
         setLoginError(error.message);
       });
+  };
+  // ! Google sign in function
+  const handleGoogleSignIn = async () => {
+    try {
+      await googleSignIn();
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className="h-[800px]  flex justify-center items-center">
@@ -92,9 +101,10 @@ const Login = () => {
           </Link>
         </p>
         <div className="divider">OR</div>
-        <button className="btn btn-outline w-full">
-          COUNTINUE WITH GOOGLE
-        </button>
+        <GoogleButton
+          onClick={handleGoogleSignIn}
+          className="mx-auto"
+        ></GoogleButton>
       </div>
     </div>
   );

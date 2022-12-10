@@ -11,7 +11,7 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
   // ! firebase .. and react hooks for context
-  const { createUser, updateUser } = useContext(AuthContext);
+  const { createUser, updateUser, googleSignIn } = useContext(AuthContext);
   const [signUpError, setSignUpError] = useState("");
 
   const handleSignUp = (data) => {
@@ -34,6 +34,14 @@ const SignUp = () => {
         console.log(error);
         setSignUpError(error.message);
       });
+  };
+  // ! Google sign in function
+  const handleGoogleSignIn = async () => {
+    try {
+      await googleSignIn();
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className="h-[800px]  flex justify-center items-center">
@@ -96,7 +104,7 @@ const SignUp = () => {
           </Link>
         </p>
         <div className="divider">OR</div>
-        <button className="btn btn-outline w-full">
+        <button className="btn btn-outline w-full" onClick={handleGoogleSignIn}>
           COUNTINUE WITH GOOGLE
         </button>
       </div>
