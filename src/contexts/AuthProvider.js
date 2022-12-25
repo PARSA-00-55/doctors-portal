@@ -40,7 +40,7 @@ const AuthProvider = ({ children }) => {
 
   // TODO : user information update function ..
   const updateUser = (userInfo) => {
-    return updateProfile(user, userInfo);
+    return updateProfile(auth.currentUser, userInfo);
   };
 
   // TODO : user sign out function ..
